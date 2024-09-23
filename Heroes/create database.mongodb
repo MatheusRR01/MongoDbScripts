@@ -1,0 +1,107 @@
+//Acessar MongoDb
+mongosh "mongodb+srv://matheusroverorodrigues.ba1kh.mongodb.net/" --apiVersion 1 --username MatheusRR_320
+
+// acessar um banco 
+use heroesDb
+
+// verificar os bancos existentes
+show dbs 
+
+// verificar as coleções de um banco
+show collections 
+
+// criar uma coleção
+db.createCollection("nome da coleção")
+
+// CRUD
+// criar uma coleção por inserção de dados
+db.heroes.insertOne({
+    name: "Superman",
+    team: "Liga da Justiça",
+    year: 33,
+    genres: "Masculino",
+    skills: [
+        'Superforça',
+        'Voo',
+        'Visão de Calor',
+        'Visão de Raio-x'
+    ],
+    useCloak: true,
+    characteristics: {
+        olhos: 'Castanhos',
+        cabelos: 'Preto',
+    }
+})
+
+// Many
+
+db.heroes.insertMany([
+    {
+        name: "Batman",
+        team: "Liga da Justiça",
+        year: 42,
+        genres: "Masculino",
+        skills: [
+            'Inteligência',
+            'Riqueza',
+            'Habilidades de combate'
+        ],
+        useCloak: true,
+        characteristics: {
+            olhos: 'Preto',
+            cabelos: 'Preto',
+        },
+        universe: 'DC'
+    },
+    {
+        name: "Mulher Maravilha",
+        team: "Liga da Justiça",
+        year: 5000,
+        genres: "Feminino",
+        skills: [
+            'Superforça',
+            'Velocidade',
+            'Sentido aguçado'
+        ],
+        useCloak: false,
+        characteristics: {
+            olhos: 'Azul',
+            cabelos: 'Preto',
+        },
+        universe: 'DC'
+    }
+])
+
+// READ
+db.heroes.find() // Use para pesquisar 
+db.heroes.find().pretty() // Melhora a exibição do resultado
+db.heroes.find({useCloak: false}) // É possível usar filtro para pesquisa
+
+// UPDATE
+// Atualizar somente um
+db.heroes.updateOne(
+    {name: 'Superman'},
+    { $set: {universe: 'DC'}} // use $set para incluir usando db.update
+)
+
+//DELETE
+db.heroes.deleteOne({_id: 1}) // deletar um registro
+db.heroes.deleteMany({ universe: 'DC'}) // deletar mais de um registro
+
+db.heroes.insertOne({
+    name: "Homem Aranha",
+    team: "Vingadores",
+    year: 35,
+    genres: "Masculino",
+    skills: [
+        'Força sobre-humana',
+        'Sentido aranha',
+        'Escalar paredes',
+        'Gerar teia'
+    ],
+    useCloak: true,
+    characteristics: {
+        olhos: 'Azuis',
+        cabelos: 'Castanhos',
+    }
+})
